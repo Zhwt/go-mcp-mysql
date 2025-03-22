@@ -157,7 +157,7 @@ func main() {
 	s.AddTool(listDatabaseTool, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		result, err := HandleQuery("SHOW DATABASES", StatementTypeNoExplainCheck)
 		if err != nil {
-			return mcp.NewToolResultError(err.Error()), nil
+			return nil, err
 		}
 
 		return mcp.NewToolResultText(result), nil
@@ -166,7 +166,7 @@ func main() {
 	s.AddTool(listTableTool, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		result, err := HandleQuery("SHOW TABLES", StatementTypeNoExplainCheck)
 		if err != nil {
-			return mcp.NewToolResultError(err.Error()), nil
+			return nil, err
 		}
 
 		return mcp.NewToolResultText(result), nil
@@ -176,7 +176,7 @@ func main() {
 		s.AddTool(createTableTool, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 			result, err := HandleExec(request.Params.Arguments["query"].(string), StatementTypeNoExplainCheck)
 			if err != nil {
-				return mcp.NewToolResultError(err.Error()), nil
+				return nil, err
 			}
 
 			return mcp.NewToolResultText(result), nil
@@ -187,7 +187,7 @@ func main() {
 		s.AddTool(alterTableTool, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 			result, err := HandleExec(request.Params.Arguments["query"].(string), StatementTypeNoExplainCheck)
 			if err != nil {
-				return mcp.NewToolResultError(err.Error()), nil
+				return nil, err
 			}
 
 			return mcp.NewToolResultText(result), nil
@@ -197,7 +197,7 @@ func main() {
 	s.AddTool(descTableTool, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		result, err := HandleDescTable(request.Params.Arguments["name"].(string))
 		if err != nil {
-			return mcp.NewToolResultError(err.Error()), nil
+			return nil, err
 		}
 
 		return mcp.NewToolResultText(result), nil
@@ -206,7 +206,7 @@ func main() {
 	s.AddTool(readQueryTool, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		result, err := HandleQuery(request.Params.Arguments["query"].(string), StatementTypeSelect)
 		if err != nil {
-			return mcp.NewToolResultError(err.Error()), nil
+			return nil, err
 		}
 
 		return mcp.NewToolResultText(result), nil
@@ -216,7 +216,7 @@ func main() {
 		s.AddTool(writeQueryTool, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 			result, err := HandleExec(request.Params.Arguments["query"].(string), StatementTypeInsert)
 			if err != nil {
-				return mcp.NewToolResultError(err.Error()), nil
+				return nil, err
 			}
 
 			return mcp.NewToolResultText(result), nil
@@ -227,7 +227,7 @@ func main() {
 		s.AddTool(updateQueryTool, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 			result, err := HandleExec(request.Params.Arguments["query"].(string), StatementTypeUpdate)
 			if err != nil {
-				return mcp.NewToolResultError(err.Error()), nil
+				return nil, err
 			}
 
 			return mcp.NewToolResultText(result), nil
@@ -238,7 +238,7 @@ func main() {
 		s.AddTool(deleteQueryTool, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 			result, err := HandleExec(request.Params.Arguments["query"].(string), StatementTypeDelete)
 			if err != nil {
-				return mcp.NewToolResultError(err.Error()), nil
+				return nil, err
 			}
 
 			return mcp.NewToolResultText(result), nil
